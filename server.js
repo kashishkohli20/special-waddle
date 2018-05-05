@@ -1,6 +1,7 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
+const port = process.env.PORT || 3000;
 
 let app = express();
 
@@ -23,13 +24,13 @@ app.use((request, response, next) => {
 
 	next();	// next() is important, without next() the server will hang up
 });
-
-app.use((request, response, next) => {
-	response.render('maintenance.hbs', {
-		issue: 'Maintenance Problem',
-		message: 'We will be right back in a while.'
-	});
-});
+//
+// app.use((request, response, next) => {
+// 	response.render('maintenance.hbs', {
+// 		issue: 'Maintenance Problem',
+// 		message: 'We will be right back in a while.'
+// 	});
+// });
 
 // Creating a HELPER for the curret year so that we dont have to menton again and agian
 hbs.registerHelper('getCurrentYear', () => {
@@ -71,6 +72,6 @@ app.get('/bad', (request, response) => {
 });
 
 // This is important line as it is what starts the server on the desired port number
-app.listen(3000, () => {
-	console.log('Starting server on port 3000');
+app.listen(port, () => {
+	console.log(`Starting server on port ${port}`);
 });
